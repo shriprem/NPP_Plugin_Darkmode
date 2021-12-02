@@ -23,7 +23,43 @@ LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
 ```
 ---
 
-##### Sample Usage Pattern:
+##### Usage Pattern:
+```C++
+BOOL APIENTRY DllMain(HANDLE hModule, DWORD  reasonForCall, LPVOID /*lpReserved*/) {
+    switch (reasonForCall) {
+      case DLL_PROCESS_ATTACH:
+        pluginInit(hModule);
+        NPPDM_InitDarkMode(nppData._nppHandle);
+        break;
+```
+
+```C++
+void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
+{
+...
+...
+...
+   NPPDM_SetDarkTitleBar(_hSelf);
+...
+...
+...
+}
+```
+
+```C++
+INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+   switch (message)
+   {
+      case WM_INITDIALOG:
+      {
+         NPPDM_SetDarkTitleBar(hwnd);
+...
+...
+...
+}
+```
+
 ```C++
 INT_PTR CALLBACK ConfigureDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM) {
    switch (message) {

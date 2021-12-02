@@ -16,7 +16,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "NppParameters.h"
-#include "Utils.h"
 
 #pragma comment(lib, "comctl32.lib")
 #pragma comment(lib, "Shlwapi.lib")

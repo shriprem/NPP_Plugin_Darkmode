@@ -165,6 +165,9 @@
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>START /MIN /D ..\ copy$(Platform).cmd</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -222,6 +225,9 @@
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>START /MIN /D ..\ copy$(Platform).cmd</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
@@ -243,15 +249,18 @@
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>START /MIN /D ..\ copy$(Platform).cmd</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DarkMode.h" />
-    <ClInclude Include="framework.h" />
     <ClInclude Include="IatHook.h" />
     <ClInclude Include="Notepad_plus_msgs.h" />
     <ClInclude Include="NppDarkMode.h" />
     <ClInclude Include="NppParameters.h" />
     <ClInclude Include="NPP_Plugin_Darkmode.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
@@ -263,6 +272,9 @@
     <ClCompile Include="NPP_Plugin_Darkmode.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NPP_Plugin_Darkmode.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

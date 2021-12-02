@@ -18,7 +18,6 @@
 #include "NppDarkMode.h"
 #include "NppParameters.h"
 #include "DarkMode.h"
-#include "Utils.h"
 
 #include <Uxtheme.h>
 #include <Vssym32.h>

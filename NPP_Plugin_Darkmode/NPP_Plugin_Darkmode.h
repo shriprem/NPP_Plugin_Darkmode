@@ -8,8 +8,6 @@
 #define NPP_PLUGIN_DARKMODE_API __declspec(dllimport)
 #endif
 
-HWND nppHandle;
-
 extern "C" NPP_PLUGIN_DARKMODE_API void NPPDM_InitDarkMode(const HWND _nppHandle);
 extern "C" NPP_PLUGIN_DARKMODE_API bool NPPDM_IsEnabled();
 extern "C" NPP_PLUGIN_DARKMODE_API bool NPPDM_IsToolBarFilled();

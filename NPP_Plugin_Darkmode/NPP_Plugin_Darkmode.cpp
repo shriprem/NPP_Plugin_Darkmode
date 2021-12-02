@@ -1,5 +1,7 @@
 #include "NPP_Plugin_Darkmode.h"
 
+HWND nppHandle;
+
 void NPPDM_InitDarkMode(const HWND _nppHandle) {
    nppHandle = _nppHandle;
    return NppDarkMode::initDarkMode();
