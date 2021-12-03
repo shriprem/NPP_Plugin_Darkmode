@@ -1,6 +1,6 @@
 // This file was developed for the FWDataViz and GotoLineCol plugins,
 // culled from the Notepad++'s Darkmode implementation in Parameters.cpp.
-// Copyright (C) 2021 Shridhar Kumar <shriprem@gmail.com>
+// Copyright (C) 2022 Shridhar Kumar <shriprem@gmail.com>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
