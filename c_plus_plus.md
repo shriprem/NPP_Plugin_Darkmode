@@ -126,7 +126,7 @@ For specific usage examples, see:
 In dialogs with SysLink controls, like [FWDataViz/AboutDialog.cpp](https://github.com/shriprem/Goto-Line-Col-NPP-Plugin/blob/master/src/Dialogs/AboutDialog.cpp) for example, additional code will be needed.
 
 The SysLink controls should be first enabled for custom text colors. This can be done with `LIS_DEFAULTCOLORS` in a `LM_SETITEM` message during `WM_INITDIALOG`.
-```C+++
+```C++
 INT_PTR CALLBACK AboutDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam) {
    switch (message) {
 ...
@@ -147,7 +147,7 @@ INT_PTR CALLBACK AboutDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 Then, `NPPDM_OnCtlColorSysLink` should be returned from within `WM_CTLCOLORSTATIC` when event control ID matches that of a SysLink control.
 
-```C+++
+```C++
 ...
 ...
 ...
