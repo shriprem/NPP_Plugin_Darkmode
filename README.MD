@@ -6,10 +6,10 @@ This common library was initially developed for use with the [FWDataViz](https:/
 
 The documentation here is primarily meant for Notepad++ plugins written in C++. Adaptations for other programming languages are welcome.
 
-A significant portion of the code in this repo has been either imported _as is_ or adapted from files in the [Notepad++ repository](https://github.com/notepad-plus-plus/notepad-plus-plus). For more information, see: [Attributions](#attributions).
+A significant portion of the code in this repo has been either imported _as is_ or adapted from files in the [Notepad++ repository](https://github.com/notepad-plus-plus/notepad-plus-plus). For more information, see: [Source Code Attributions](#source-code-attributions).
 
 
-#### Files to include with your plugin:
+### Files to include with your plugin:
 1. **NPP_Plugin_Darkmode.h**
    * Needed at _compile time_
    * Include in the _Source_ path
@@ -22,12 +22,12 @@ A significant portion of the code in this repo has been either imported _as is_ 
 
 3. **NPP_Plugin_Darkmode.dll**
    * Needed at _run time_
-   * Include either in `<NPP_folder>` or `<NPP_Plugins_folder>` or `<NPP_Plugins_folder>/Plugin_subfolder`.
+   * Include either in `<NPP_folder>` or `<NPP_Plugins_folder>/Plugin_subfolder`.
    * Needs _matching_ version for [x86](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/Win32/NPP_Plugin_Darkmode.dll) / [x64](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/x64/NPP_Plugin_Darkmode.dll) / [arm64](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/ARM64/NPP_Plugin_Darkmode.dll)
 
 
 
-#### Functions exported by the DLL:
+### Functions exported by the DLL:
 ```c++
 void NPPDM_InitDarkMode(const HWND _nppHandle);
 bool NPPDM_IsEnabled();
@@ -41,12 +41,12 @@ LRESULT NPPDM_OnCtlColorError(HDC hdc);
 LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
 ```
 
-#### Usage Notes:
-1. [Documentation](https://github.com/shriprem/NPP_Plugin_Darkmode/c_plus_plus.md) for plugins written in C++.
+### Usage Notes:
+1. [Documentation](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/c_plus_plus.md) for plugins written in C++.
 
-#### Source Code Attribution:
+### Source Code Attributions:
 
-##### Unchanged [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus)  Source Files
+#### Unchanged [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus)  Source Files
 
 1. DarkMode.h
 2. DarkMode.cpp
@@ -54,13 +54,13 @@ LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
 4. Notepad_plus_msgs.h
 
 
-##### Adapted [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus) Source Files
+#### Adapted [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus) Source Files
 1. NppParameters.h
 2. NppParameters.cpp
 3. NppDarkMode.h
 4. NppDarkMode.cpp
 
 
-##### [TinyXML-2](https://github.com/leethomason/tinyxml2) Source Files
+#### [TinyXML-2](https://github.com/leethomason/tinyxml2) Source Files
 1. tinyxml2.h
 2. tinyxml2.cpp
