@@ -161,9 +161,8 @@ Then, `NPPDM_OnCtlColorSysLink` should be returned from within `WM_CTLCOLORSTATI
       if (NPPDM_IsEnabled()) {
          return NPPDM_OnCtlColorDarker((HDC)wParam);
       }
-      break;```
+      break;
 ...
 ...
 ...
 ```
-
