@@ -9,6 +9,14 @@ The documentation here is primarily meant for Notepad++ plugins written in C++. 
 A significant portion of the code in this repo has been either imported _as is_ or adapted from files in the [Notepad++ repository](https://github.com/notepad-plus-plus/notepad-plus-plus). For more information, see: [Source Code Attributions](#source-code-attributions).
 
 
+#### _Restart of Notepad++ is necessary when darkmode settings are changed_
+The plugins are able to render in darkmode based on the settings stored in the `config.xml` file for Notepad++. (The `config.xml` is located either in the `%APPDATA%\Notepad++` folder for full installations of NPP or the `<NPP_Portable>` folder for portable versions of NPP.)
+
+When darkmode is enabled or disabled, or when darkmode tone settings are changed in Notepad++, those changes are only confined to the Notepad++ process memory. These setting changes remain inaccessible to the plugins until Notepad++ is closed. Only when Notepad++ is closed, the setting changes are saved to the `config.xml` file by the Notepad++ process.
+
+Therefore, until the time when Notepad++ API is enhanced to provide these setting changes to the plugins dynamically, a restart of Notepad++ is necessary for the plugins to be able to reflect changes in the darkmode settings.
+
+
 ### Files to include with your plugin:
 1. **NPP_Plugin_Darkmode.h**
    * Needed at _compile time_
@@ -61,6 +69,6 @@ LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
 4. NppDarkMode.cpp
 
 
-#### [TinyXML-2](https://github.com/leethomason/tinyxml2) Source Files
+#### Unchanged [TinyXML-2](https://github.com/leethomason/tinyxml2) Source Files
 1. tinyxml2.h
 2. tinyxml2.cpp
