@@ -79,6 +79,7 @@ INT_PTR CALLBACK ConfigureDialog::run_dlgProc(UINT message, WPARAM wParam, LPARA
       break;
 
    case WM_CTLCOLORDLG:
+   case WM_CTLCOLORBTN:
    case WM_CTLCOLORLISTBOX:
    case WM_CTLCOLORSTATIC:
       if (NPPDM_IsEnabled()) {
@@ -89,12 +90,6 @@ INT_PTR CALLBACK ConfigureDialog::run_dlgProc(UINT message, WPARAM wParam, LPARA
    case WM_CTLCOLOREDIT:
       if (NPPDM_IsEnabled()) {
          return NPPDM_OnCtlColorSofter(reinterpret_cast<HDC>(wParam));
-      }
-      break;
-
-   case WM_PRINTCLIENT:
-      if (NPPDM_IsEnabled()) {
-         return TRUE;
       }
       break;
    }
@@ -109,13 +104,14 @@ INT_PTR CALLBACK ConfigureDialog::run_dlgProc(UINT message, WPARAM wParam, LPARA
 
 * The `NPPDM_...` function call under `WM_CTLCOLORDLG` is also a standard requirement for all dialogs.
 
+* The `NPPDM_...` function call under `WM_CTLCOLORBTN` is required when a dialog has one or more button controls. In Windows 7 clients, this will suppress white edges around button controls in darkmode.
+
 * The `NPPDM_...` function call under `WM_CTLCOLORLISTBOX` is required when a dialog has one or more list box controls.
 
 * The `NPPDM_...` function call under `WM_CTLCOLORSTATIC` is required when a dialog has one or more static text controls.
 
 * The `NPPDM_...` function call under `WM_CTLCOLOREDIT` is required when a dialog has one or more edit controls.
 
-* The code under `WM_PRINTCLIENT` is required when a dialog has one or more button controls. The `return TRUE` will suppress white edges around button controls in darkmode in Windows 7 clients.
 
 For specific usage examples, see:
 1. [FWDataViz/AboutDialog.cpp](https://github.com/shriprem/Goto-Line-Col-NPP-Plugin/blob/master/src/Dialogs/AboutDialog.cpp)
