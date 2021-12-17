@@ -92,9 +92,13 @@ namespace NppDarkMode
    };
 
    void initDarkMode();          // pulls options from NppParameters
+   //??void refreshDarkMode(HWND hwnd, bool forceRefresh = false);	// attempts to apply new options from NppParameters, sends NPPM_INTERNAL_REFRESHDARKMODE to hwnd's top level parent
+
    bool isEnabled();
    bool isDarkMenuEnabled();
    bool isExperimentalSupported();
+
+   bool isWindows11();
 
    COLORREF invertLightness(COLORREF c);
    COLORREF invertLightnessSofter(COLORREF c);
@@ -159,7 +163,6 @@ namespace NppDarkMode
 
    void subclassButtonControl(HWND hwnd);
    void subclassGroupboxControl(HWND hwnd);
-   void subclassToolbarControl(HWND hwnd);
    void subclassTabControl(HWND hwnd);
    void subclassComboBoxControl(HWND hwnd);
 
