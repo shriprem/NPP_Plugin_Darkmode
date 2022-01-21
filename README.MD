@@ -1,5 +1,7 @@
 ## Darkmode Libary for Notepad++ Plugins
 
+![GitHub](https://img.shields.io/github/license/shriprem/NPP_Plugin_Darkmode) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/shriprem/NPP_Plugin_Darkmode) ![GitHub all releases](https://img.shields.io/github/downloads/shriprem/NPP_Plugin_Darkmode/total)
+
 A common, shareable DLL for enabling the Darkmode feature across multiple Notepad++ plugins.
 
 This common library was initially developed for use with the [FWDataViz](https://github.com/shriprem/FWDataViz) and [GotoLineCol](https://github.com/shriprem/Goto-Line-Col-NPP-Plugin) plugins.
