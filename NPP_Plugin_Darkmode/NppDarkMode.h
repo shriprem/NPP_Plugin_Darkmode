@@ -186,4 +186,7 @@ namespace NppDarkMode
    LRESULT onCtlColorDarker(HDC hdc);
    LRESULT onCtlColorError(HDC hdc);
    LRESULT onCtlColorSysLink(HDC hdc);
+
+   LRESULT onCtlColorIfEnabled(HDC hdc, bool isEnabled);
+   LRESULT onCtlHiliteIfEnabled(HDC hdc, bool isEnabled);
 }

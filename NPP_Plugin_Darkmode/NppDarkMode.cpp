@@ -1548,4 +1548,36 @@ namespace NppDarkMode
       ::SetBkColor(hdc, NppDarkMode::getBackgroundColor());
       return reinterpret_cast<LRESULT>(NppDarkMode::getBackgroundBrush());
    }
+ 
+   LRESULT onCtlColorIfEnabled(HDC hdc, bool isEnabled) {
+      LRESULT result{};
+
+      if (NppDarkMode::isEnabled()) {
+         result = onCtlColorDarker(hdc);
+         SetTextColor(hdc, isEnabled ? NppDarkMode::getTextColor() : NppDarkMode::getDisabledTextColor());
+      }
+      else {
+         SetTextColor(hdc, GetSysColor(isEnabled ? COLOR_WINDOWTEXT : COLOR_GRAYTEXT));
+         SetBkColor(hdc, GetSysColor(COLOR_3DFACE));
+         result = reinterpret_cast<LRESULT>(GetSysColorBrush(COLOR_3DFACE));
+      }
+
+      return result;
+   }
+
+   LRESULT onCtlHiliteIfEnabled(HDC hdc, bool isEnabled) {
+      LRESULT result{};
+
+      if (NppDarkMode::isEnabled()) {
+         result = onCtlColorSysLink(hdc);
+         SetTextColor(hdc, isEnabled ? NppDarkMode::getLinkTextColor() : NppDarkMode::getDisabledTextColor());
+      }
+      else {
+         SetTextColor(hdc, GetSysColor(isEnabled ? COLOR_HIGHLIGHT : COLOR_GRAYTEXT));
+         SetBkColor(hdc, GetSysColor(COLOR_3DFACE));
+         result = reinterpret_cast<LRESULT>(GetSysColorBrush(COLOR_3DFACE));
+      }
+
+      return result;
+   }
 }

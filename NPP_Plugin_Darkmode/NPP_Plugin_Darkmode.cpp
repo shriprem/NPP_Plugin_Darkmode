@@ -42,3 +42,11 @@ LRESULT NPPDM_OnCtlColorError(HDC hdc) {
 LRESULT NPPDM_OnCtlColorSysLink(HDC hdc) {
    return NppDarkMode::onCtlColorSysLink(hdc);
 }
+
+LRESULT NPPDM_OnCtlColorIfEnabled(HDC hdc, bool isEnabled) {
+   return NppDarkMode::onCtlColorIfEnabled(hdc, isEnabled);
+}
+
+LRESULT NPPDM_OnCtlHiliteIfEnabled(HDC hdc, bool isEnabled) {
+   return NppDarkMode::onCtlHiliteIfEnabled(hdc, isEnabled);
+}
