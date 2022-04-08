@@ -1550,7 +1550,7 @@ namespace NppDarkMode
    }
  
    LRESULT onCtlColorIfEnabled(HDC hdc, bool isEnabled) {
-      LRESULT result{};
+      LRESULT result{ FALSE };
 
       if (NppDarkMode::isEnabled()) {
          result = onCtlColorDarker(hdc);
@@ -1558,15 +1558,13 @@ namespace NppDarkMode
       }
       else {
          SetTextColor(hdc, GetSysColor(isEnabled ? COLOR_WINDOWTEXT : COLOR_GRAYTEXT));
-         SetBkColor(hdc, GetSysColor(COLOR_3DFACE));
-         result = reinterpret_cast<LRESULT>(GetSysColorBrush(COLOR_3DFACE));
       }
 
       return result;
    }
 
    LRESULT onCtlHiliteIfEnabled(HDC hdc, bool isEnabled) {
-      LRESULT result{};
+      LRESULT result{ FALSE };
 
       if (NppDarkMode::isEnabled()) {
          result = onCtlColorSysLink(hdc);
@@ -1574,8 +1572,6 @@ namespace NppDarkMode
       }
       else {
          SetTextColor(hdc, GetSysColor(isEnabled ? COLOR_HIGHLIGHT : COLOR_GRAYTEXT));
-         SetBkColor(hdc, GetSysColor(COLOR_3DFACE));
-         result = reinterpret_cast<LRESULT>(GetSysColorBrush(COLOR_3DFACE));
       }
 
       return result;

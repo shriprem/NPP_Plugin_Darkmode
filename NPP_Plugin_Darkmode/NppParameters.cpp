@@ -110,6 +110,7 @@ bool NppParameters::loadConfigSettings() {
          _darkmode._customColors.darkerText = guiConfig->IntAttribute("customColorDarkText");
          _darkmode._customColors.disabledText = guiConfig->IntAttribute("customColorDisabledText");
          _darkmode._customColors.edge = guiConfig->IntAttribute("customColorEdge");
+         _darkmode._customColors.linkText = guiConfig->IntAttribute("customColorLinkText");
       }
 
       guiConfig = guiConfig->NextSiblingElement("GUIConfig");
