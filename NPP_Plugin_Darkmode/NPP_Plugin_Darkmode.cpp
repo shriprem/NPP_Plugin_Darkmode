@@ -1,4 +1,5 @@
 #include "NPP_Plugin_Darkmode.h"
+#include "NppDarkMode.h"
 
 HWND nppHandle;
 
@@ -7,20 +8,24 @@ void NPPDM_InitDarkMode(const HWND _nppHandle) {
    return NppDarkMode::initDarkMode();
 }
 
+void NPPDM_QueryNPPDarkmode() {
+   NppDarkMode::queryNPPDarkmode();
+}
+
 bool NPPDM_IsEnabled() {
    return NppDarkMode::isEnabled();
 }
 
-bool NPPDM_IsToolBarFilled() {
-   return NppDarkMode::isToolBarFilled();
-}
-
 void NPPDM_AutoSubclassAndThemeChildControls(HWND hwndParent, bool subclass, bool theme) {
-   return NppDarkMode::autoSubclassAndThemeChildControls(hwndParent, subclass, theme);
+   NppDarkMode::autoSubclassAndThemeChildControls(hwndParent, subclass, theme);
 }
 
 void NPPDM_SetDarkTitleBar(HWND hwnd) {
-   return NppDarkMode::setDarkTitleBar(hwnd);
+   NppDarkMode::setDarkTitleBar(hwnd);
+}
+
+void NPPDM_InitSysLink(HWND hCtl) {
+   NppDarkMode::initSysLink(hCtl);
 }
 
 LRESULT NPPDM_OnCtlColor(HDC hdc) {
@@ -49,4 +54,8 @@ LRESULT NPPDM_OnCtlColorIfEnabled(HDC hdc, bool isEnabled) {
 
 LRESULT NPPDM_OnCtlHiliteIfEnabled(HDC hdc, bool isEnabled) {
    return NppDarkMode::onCtlHiliteIfEnabled(hdc, isEnabled);
+}
+
+INT_PTR NPPDM_OnCtlColorListbox(WPARAM wParam, LPARAM lParam) {
+   return NppDarkMode::onCtlColorListbox(wParam, lParam);
 }

@@ -24,4 +24,5 @@ namespace Utils {
    wstring getKnownFolderPath(REFKNOWNFOLDERID folderID);
 
    bool checkBaseOS(winVer os);
+   float getNPPVersion();
 }
