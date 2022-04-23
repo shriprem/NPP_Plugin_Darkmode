@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NppDarkMode.h"
+#include <Windows.h>
 
 #ifdef NPP_PLUGIN_DARKMODE_EXPORTS
 #define NPP_PLUGIN_DARKMODE_API __declspec(dllexport)
