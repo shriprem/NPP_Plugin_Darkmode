@@ -24,13 +24,7 @@
     <ClInclude Include="NppDarkMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NppParameters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DarkMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IatHook.h">
@@ -39,30 +33,21 @@
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DarkMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NppDarkMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NppParameters.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NPP_Plugin_Darkmode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

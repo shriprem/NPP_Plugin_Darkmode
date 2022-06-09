@@ -9,10 +9,11 @@
 #endif
 
 extern "C" NPP_PLUGIN_DARKMODE_API void NPPDM_InitDarkMode(const HWND _nppHandle);
+extern "C" NPP_PLUGIN_DARKMODE_API void NPPDM_QueryNPPDarkmode();
 extern "C" NPP_PLUGIN_DARKMODE_API bool NPPDM_IsEnabled();
-extern "C" NPP_PLUGIN_DARKMODE_API bool NPPDM_IsToolBarFilled();
 extern "C" NPP_PLUGIN_DARKMODE_API void NPPDM_AutoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 extern "C" NPP_PLUGIN_DARKMODE_API void NPPDM_SetDarkTitleBar(HWND hwnd);
+extern "C" NPP_PLUGIN_DARKMODE_API void NPPDM_InitSysLink(HWND hCtl);
 extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlColor(HDC hdc);
 extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlColorSofter(HDC hdc);
 extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlColorDarker(HDC hdc);
@@ -20,3 +21,4 @@ extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlColorError(HDC hdc);
 extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
 extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlColorIfEnabled(HDC hdc, bool isEnabled);
 extern "C" NPP_PLUGIN_DARKMODE_API LRESULT NPPDM_OnCtlHiliteIfEnabled(HDC hdc, bool isEnabled);
+extern "C" NPP_PLUGIN_DARKMODE_API INT_PTR NPPDM_OnCtlColorListbox(WPARAM wParam, LPARAM lParam);

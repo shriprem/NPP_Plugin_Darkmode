@@ -46,3 +46,10 @@ wstring Utils::getKnownFolderPath(REFKNOWNFOLDERID folderID) {
 bool Utils::checkBaseOS(winVer os) {
    return (nppMessage(NPPM_GETWINDOWSVERSION, NULL, NULL) >= os);
 }
+
+float Utils::getNPPVersion() {
+   long versionNum{ static_cast<long>(nppMessage(NPPM_GETNPPVERSION, 0, 0)) };
+
+   return std::stof(std::to_wstring(HIWORD(versionNum)) + L"." + std::to_wstring(LOWORD(versionNum)));
+}
+
