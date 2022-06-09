@@ -31,7 +31,7 @@ extern "C" NPP_PLUGIN_DARKMODE_API INT_PTR NPPDM_OnCtlColorListbox(WPARAM wParam
 
 #else
 
-void NPPDM_InitDarkMode();
+void NPPDM_InitDarkMode(const HWND _nppHandle);
 void NPPDM_QueryNPPDarkmode();
 bool NPPDM_IsEnabled();
 void NPPDM_AutoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
