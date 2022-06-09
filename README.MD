@@ -11,12 +11,7 @@ The documentation here is primarily meant for Notepad++ plugins written in C++. 
 A significant portion of the code in this repo has been either imported _as is_ or adapted from files in the [Notepad++ repository](https://github.com/notepad-plus-plus/notepad-plus-plus). For more information, see: [Source Code Attributions](#source-code-attributions).
 
 
-#### _Restart of Notepad++ is necessary when darkmode settings are changed_
-The plugins are able to render in darkmode based on the settings stored in the `config.xml` file for Notepad++. (The `config.xml` is located either in the `%APPDATA%\Notepad++` folder for full installations of NPP or the `<NPP_Portable>` folder for portable versions of NPP.)
-
-When darkmode is enabled or disabled, or when darkmode tone settings are changed in Notepad++, those changes are only confined to the Notepad++ process memory. These setting changes remain inaccessible to the plugins until Notepad++ is closed. Only when Notepad++ is closed, the setting changes are saved to the `config.xml` file by the Notepad++ process.
-
-Therefore, until the time when Notepad++ API is enhanced to provide these setting changes to the plugins dynamically, a restart of Notepad++ is necessary for the plugins to be able to reflect changes in the darkmode settings.
+#### _This release is compatible with Notepad++ 8.4.1 or later versions_
 
 
 ### Files to include with your plugin:
@@ -40,15 +35,19 @@ Therefore, until the time when Notepad++ API is enhanced to provide these settin
 ### Functions exported by the DLL:
 ```c++
 void NPPDM_InitDarkMode(const HWND _nppHandle);
+void NPPDM_QueryNPPDarkmode();
 bool NPPDM_IsEnabled();
-bool NPPDM_IsToolBarFilled();
 void NPPDM_AutoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
 void NPPDM_SetDarkTitleBar(HWND hwnd);
+void NPPDM_InitSysLink(HWND hCtl);
 LRESULT NPPDM_OnCtlColor(HDC hdc);
 LRESULT NPPDM_OnCtlColorSofter(HDC hdc);
 LRESULT NPPDM_OnCtlColorDarker(HDC hdc);
 LRESULT NPPDM_OnCtlColorError(HDC hdc);
 LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
+LRESULT NPPDM_OnCtlColorIfEnabled(HDC hdc, bool isEnabled);
+LRESULT NPPDM_OnCtlHiliteIfEnabled(HDC hdc, bool isEnabled);
+INT_PTR NPPDM_OnCtlColorListbox(WPARAM wParam, LPARAM lParam);
 ```
 
 ### Usage Notes:
@@ -65,12 +64,5 @@ LRESULT NPPDM_OnCtlColorSysLink(HDC hdc);
 
 
 #### Adapted [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus) Source Files
-1. NppParameters.h
-2. NppParameters.cpp
-3. NppDarkMode.h
-4. NppDarkMode.cpp
-
-
-#### Unchanged [TinyXML-2](https://github.com/leethomason/tinyxml2) Source Files
-1. tinyxml2.h
-2. tinyxml2.cpp
+1. NppDarkMode.h
+2. NppDarkMode.cpp
