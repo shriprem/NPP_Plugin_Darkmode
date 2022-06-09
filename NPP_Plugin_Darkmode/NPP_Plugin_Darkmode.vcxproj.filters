@@ -15,39 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NPP_Plugin_Darkmode.h">
+    <ClInclude Include="Darkmode\DarkMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Notepad_plus_msgs.h">
+    <ClInclude Include="Darkmode\IatHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NppDarkMode.h">
+    <ClInclude Include="Darkmode\Notepad_plus_msgs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DarkMode.h">
+    <ClInclude Include="Darkmode\NPP_Plugin_Darkmode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IatHook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
+    <ClInclude Include="Darkmode\NppDarkMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DarkMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NppDarkMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NPP_Plugin_Darkmode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dllMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Darkmode\DarkMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Darkmode\NPP_Plugin_Darkmode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Darkmode\NppDarkMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

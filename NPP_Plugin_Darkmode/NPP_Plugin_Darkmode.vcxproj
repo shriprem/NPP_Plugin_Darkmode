@@ -155,7 +155,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
-      <PreprocessorDefinitions>NPP_PLUGIN_DARKMODE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NPP_PLUGIN_DARKMODE_EXPORTS;NPP_PLUGIN_MODE_LIB_AND_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -216,7 +217,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
-      <PreprocessorDefinitions>NPP_PLUGIN_DARKMODE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NPP_PLUGIN_DARKMODE_EXPORTS;NPP_PLUGIN_MODE_LIB_AND_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -241,7 +243,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
-      <PreprocessorDefinitions>NPP_PLUGIN_DARKMODE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NPP_PLUGIN_DARKMODE_EXPORTS;NPP_PLUGIN_MODE_LIB_AND_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -257,19 +260,17 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DarkMode.h" />
-    <ClInclude Include="IatHook.h" />
-    <ClInclude Include="Notepad_plus_msgs.h" />
-    <ClInclude Include="NppDarkMode.h" />
-    <ClInclude Include="NPP_Plugin_Darkmode.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Darkmode\DarkMode.h" />
+    <ClInclude Include="Darkmode\IatHook.h" />
+    <ClInclude Include="Darkmode\Notepad_plus_msgs.h" />
+    <ClInclude Include="Darkmode\NppDarkMode.h" />
+    <ClInclude Include="Darkmode\NPP_Plugin_Darkmode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DarkMode.cpp" />
+    <ClCompile Include="Darkmode\DarkMode.cpp" />
+    <ClCompile Include="Darkmode\NppDarkMode.cpp" />
+    <ClCompile Include="Darkmode\NPP_Plugin_Darkmode.cpp" />
     <ClCompile Include="dllMain.cpp" />
-    <ClCompile Include="NppDarkMode.cpp" />
-    <ClCompile Include="NPP_Plugin_Darkmode.cpp" />
-    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NPP_Plugin_Darkmode.rc" />

@@ -3,10 +3,18 @@
 
 HWND nppHandle;
 
+#ifdef NPP_PLUGIN_MODE_LIB_AND_DLL
 void NPPDM_InitDarkMode(const HWND _nppHandle) {
    nppHandle = _nppHandle;
    return NppDarkMode::initDarkMode();
 }
+#else
+void NPPDM_InitDarkMode() {
+   return NppDarkMode::initDarkMode();
+}
+#endif // NPP_PLUGIN_MODE_LIB_AND_DLL
+
+
 
 void NPPDM_QueryNPPDarkmode() {
    NppDarkMode::queryNPPDarkmode();

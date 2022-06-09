@@ -20,7 +20,7 @@
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "uxtheme.lib")
 
-#include "Utils.h"
+#include "Notepad_plus_msgs.h"
 
 constexpr COLORREF HEXRGB(DWORD rrggbb) {
    // from 0xRRGGBB like natural #RRGGBB
