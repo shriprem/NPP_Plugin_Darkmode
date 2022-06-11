@@ -260,20 +260,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Darkmode\DarkMode.h" />
-    <ClInclude Include="Darkmode\IatHook.h" />
-    <ClInclude Include="Darkmode\Notepad_plus_msgs.h" />
-    <ClInclude Include="Darkmode\NppDarkMode.h" />
-    <ClInclude Include="Darkmode\NPP_Plugin_Darkmode.h" />
+    <ClInclude Include="..\src\Darkmode\DarkMode.h" />
+    <ClInclude Include="..\src\Darkmode\IatHook.h" />
+    <ClInclude Include="..\src\Darkmode\Notepad_plus_msgs.h" />
+    <ClInclude Include="..\src\Darkmode\NppDarkMode.h" />
+    <ClInclude Include="..\src\Darkmode\NPP_Plugin_Darkmode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Darkmode\DarkMode.cpp" />
-    <ClCompile Include="Darkmode\NppDarkMode.cpp" />
-    <ClCompile Include="Darkmode\NPP_Plugin_Darkmode.cpp" />
-    <ClCompile Include="dllMain.cpp" />
+    <ClCompile Include="..\src\Darkmode\DarkMode.cpp" />
+    <ClCompile Include="..\src\Darkmode\NppDarkMode.cpp" />
+    <ClCompile Include="..\src\Darkmode\NPP_Plugin_Darkmode.cpp" />
+    <ClCompile Include="..\src\dllMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="NPP_Plugin_Darkmode.rc" />
+    <ResourceCompile Include="..\src\NPP_Plugin_Darkmode.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
