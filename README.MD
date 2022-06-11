@@ -2,42 +2,28 @@
 
 ![GitHub](https://img.shields.io/github/license/shriprem/NPP_Plugin_Darkmode) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/shriprem/NPP_Plugin_Darkmode) ![GitHub all releases](https://img.shields.io/github/downloads/shriprem/NPP_Plugin_Darkmode/total)
 
-A common, shareable DLL for enabling the Darkmode feature across multiple Notepad++ plugins.
+API Library for enabling the Darkmode feature in any Notepad++ plugin written in C++.
 
-This common library was initially developed for use with the [FWDataViz](https://github.com/shriprem/FWDataViz) and [GotoLineCol](https://github.com/shriprem/Goto-Line-Col-NPP-Plugin) plugins.
+This API library was initially developed for use with the [FWDataViz](https://github.com/shriprem/FWDataViz) and [GotoLineCol](https://github.com/shriprem/Goto-Line-Col-NPP-Plugin) plugins.
 
-The documentation here is primarily meant for Notepad++ plugins written in C++. Adaptations for other programming languages are welcome.
+The documentation here is primarily meant for Notepad++ plugins written in C++.
 
 A significant portion of the code in this repo has been either imported _as is_ or adapted from files in the [Notepad++ repository](https://github.com/notepad-plus-plus/notepad-plus-plus). For more information, see: [Source Code Attributions](#source-code-attributions).
 
 
-#### _This release is compatible with Notepad++ 8.4.1 or later versions_
+#### `NOTE:` _This release is compatible with Notepad++ 8.4.1 or later versions_
+
+### Source File Usage:
+This API Library can be utilized by importing all the 8 files found in the folder path `NPP_Plugin_Darkmode/Darkmode/` of this repo into your plugin solution, and then adding `#include "<relative_Darkmode_folder_path>/NPP_Plugin_Darkmode.h"` in all your _DialogXYZ.cpp_ files.
 
 
-### Files to include with your plugin:
-1. **NPP_Plugin_Darkmode.h**
-   * Needed at _compile time_
-   * Include in the _Source_ path
-   * [_Common_](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/NPP_Plugin_Darkmode/NPP_Plugin_Darkmode.h) version for x86 / x64 / arm64
-
-2. **NPP_Plugin_Darkmode.lib**
-   * Needed at _link time_
-   * Include in the _Library_ path
-   * Needs _matching_ version for [x86](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/Win32/NPP_Plugin_Darkmode.lib) / [x64](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/x64/NPP_Plugin_Darkmode.lib) / [arm64](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/ARM64/NPP_Plugin_Darkmode.lib)
-
-3. **NPP_Plugin_Darkmode.dll**
-   * Needed at _run time_
-   * Include either in `<NPP_folder>` or `<NPP_Plugins_folder>/Plugin_subfolder`.
-   * Needs _matching_ version for [x86](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/Win32/NPP_Plugin_Darkmode.dll) / [x64](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/x64/NPP_Plugin_Darkmode.dll) / [arm64](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/Release/ARM64/NPP_Plugin_Darkmode.dll)
-
-
-
-### Functions exported by the DLL:
+### API Functions:
 ```c++
 void NPPDM_InitDarkMode(const HWND _nppHandle);
 void NPPDM_QueryNPPDarkmode();
 bool NPPDM_IsEnabled();
-void NPPDM_AutoSubclassAndThemeChildControls(HWND hwndParent, bool subclass = true, bool theme = true);
+void NPPDM_AutoSubclassAndThemeChildControls(HWND hwndParent);
+void NPPDM_AutoThemeChildControls(HWND hwndParent);
 void NPPDM_SetDarkTitleBar(HWND hwnd);
 void NPPDM_InitSysLink(HWND hCtl);
 LRESULT NPPDM_OnCtlColor(HDC hdc);
@@ -50,8 +36,8 @@ LRESULT NPPDM_OnCtlHiliteIfEnabled(HDC hdc, bool isEnabled);
 INT_PTR NPPDM_OnCtlColorListbox(WPARAM wParam, LPARAM lParam);
 ```
 
-### Usage Notes:
-1. [Documentation](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/c_plus_plus.md) for plugins written in C++.
+### API Usage Notes:
+1. [Documentation](https://github.com/shriprem/NPP_Plugin_Darkmode/blob/master/c_plus_plus.md) for plugins written in C++. (_This document will be updated shortly for the NPP_Plugin_Darkmode 2.0 version changes._)
 
 ### Source Code Attributions:
 
