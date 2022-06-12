@@ -11,10 +11,10 @@ The documentation here is primarily meant for Notepad++ plugins written in C++.
 A significant portion of the code in this repo has been either imported _as is_ or adapted from files in the [Notepad++ repository](https://github.com/notepad-plus-plus/notepad-plus-plus). For more information, see: [Source Code Attributions](#source-code-attributions).
 
 
-#### `NOTE:` _This release is compatible with Notepad++ 8.4.1 or later versions_
+#### `NOTE:` _This release is compatible with Notepad++ 8.4.3 or later versions_
 
 ### Source File Usage:
-This API Library can be utilized by importing all the 8 files found in the folder path `NPP_Plugin_Darkmode/Darkmode/` of this repo into your plugin solution, and then adding `#include "<relative_Darkmode_folder_path>/NPP_Plugin_Darkmode.h"` in all your _DialogXYZ.cpp_ files.
+This API Library can be utilized by importing all the 8 files found in the folder path `src/Darkmode/` of this repo into your plugin solution, and then adding `#include "<relative_Darkmode_folder_path>/NPP_Plugin_Darkmode.h"` in all your _DialogXYZ.cpp_ files.
 
 
 ### API Functions:
