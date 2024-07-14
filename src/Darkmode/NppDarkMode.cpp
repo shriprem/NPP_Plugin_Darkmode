@@ -18,9 +18,10 @@
 #include "NppDarkMode.h"
 #include "DarkMode.h"
 
-#include <Uxtheme.h>
-#include <Vssym32.h>
-#include <Shlwapi.h>
+#include <dwmapi.h>
+#include <uxtheme.h>
+#include <vssym32.h>
+#include <shlwapi.h>
 #include <cmath>
 #include <cassert>
 
@@ -29,6 +30,10 @@
 #define WINAPI_LAMBDA WINAPI
 #else
 #define WINAPI_LAMBDA
+#endif
+
+#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
+#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
 #endif
 
 extern HWND nppHandle;
@@ -190,7 +195,7 @@ namespace NppDarkMode
       return scaleY;
    }
 
-   int nppMessage(UINT messageID, WPARAM wparam, LPARAM lparam) {
+   int nppMessage(UINT messageID, WPARAM wparam = 0, LPARAM lparam = 0) {
       return static_cast<int>(SendMessage(nppHandle, messageID, wparam, lparam));
    }
 
@@ -200,7 +205,7 @@ namespace NppDarkMode
 
    void queryNPPDarkmode()
    {
-      _isDarkModeEnabled = static_cast<boolean>(nppMessage(NPPM_ISDARKMODEENABLED, 0, 0));
+      _isDarkModeEnabled = static_cast<boolean>(nppMessage(NPPM_ISDARKMODEENABLED));
 
       Colors customColors{};
       nppMessage(NPPM_GETDARKMODECOLORS, sizeof(customColors), reinterpret_cast<LPARAM>(&customColors));
@@ -225,10 +230,17 @@ namespace NppDarkMode
       return g_darkModeSupported;
    }
 
+   bool isWindows10() {
+      return IsWindows10();
+   }
+
    bool isWindows11() {
       return IsWindows11();
    }
 
+   DWORD getWindowsBuildNumber() {
+      return GetWindowsBuildNumber();
+   }
 
    COLORREF invertLightness(COLORREF c)
    {
@@ -260,11 +272,11 @@ namespace NppDarkMode
 
    TreeViewStyle treeViewStyle = TreeViewStyle::classic;
 
-   COLORREF treeViewBg = intToRGB(static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR, NULL, NULL)));
-   double lighnessTreeView = 50.0;
+   COLORREF treeViewBg = intToRGB(static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR)));
+   double lightnessTreeView = 50.0;
 
    // adapted from https://stackoverflow.com/a/56678483
-   double calculatePerceivedLighness(COLORREF c)
+   double calculatePerceivedLightness(COLORREF c)
    {
       auto linearValue = [](double colorChannel) -> double
       {
@@ -373,8 +385,8 @@ namespace NppDarkMode
 
    void renderButton(HWND hwnd, HDC hdc, HTHEME hTheme, int iPartID, int iStateID)
    {
-      RECT rcClient = { 0 };
-      WCHAR szText[256] = { 0 };
+      RECT rcClient{};
+      WCHAR szText[256] = { '\0' };
       DWORD nState = static_cast<DWORD>(SendMessage(hwnd, BM_GETSTATE, 0, 0));
       DWORD uiState = static_cast<DWORD>(SendMessage(hwnd, WM_QUERYUISTATE, 0, 0));
       DWORD nStyle = GetWindowLong(hwnd, GWL_STYLE);
@@ -382,7 +394,7 @@ namespace NppDarkMode
       HFONT hFont = nullptr;
       HFONT hOldFont = nullptr;
       HFONT hCreatedFont = nullptr;
-      LOGFONT lf = { 0 };
+      LOGFONT lf {};
       if (SUCCEEDED(GetThemeFont(hTheme, hdc, iPartID, iStateID, TMT_FONT, &lf)))
       {
          hCreatedFont = CreateFontIndirect(&lf);
@@ -427,7 +439,9 @@ namespace NppDarkMode
       DrawThemeParentBackground(hwnd, hdc, &rcClient);
       DrawThemeBackground(hTheme, hdc, iPartID, iStateID, &rcBackground, nullptr);
 
-      DTTOPTS dtto = { sizeof(DTTOPTS), DTT_TEXTCOLOR };
+      DTTOPTS dtto{};
+      dtto.dwSize = sizeof(DTTOPTS);
+      dtto.dwFlags = DTT_TEXTCOLOR;
       dtto.crText = getTextColor();
 
       if (nStyle & WS_DISABLED)
@@ -490,14 +504,15 @@ namespace NppDarkMode
          return;
       }
 
-      BP_ANIMATIONPARAMS animParams = { sizeof(animParams) };
+      BP_ANIMATIONPARAMS animParams{};
+      animParams.cbSize = sizeof(BP_ANIMATIONPARAMS);
       animParams.style = BPAS_LINEAR;
       if (iStateID != buttonData.iStateID)
       {
          GetThemeTransitionDuration(buttonData.hTheme, iPartID, buttonData.iStateID, iStateID, TMT_TRANSITIONDURATIONS, &animParams.dwDuration);
       }
 
-      RECT rcClient = { 0 };
+      RECT rcClient {};
       GetClientRect(hwnd, &rcClient);
 
       HDC hdcFrom = nullptr;
@@ -549,10 +564,12 @@ namespace NppDarkMode
                InvalidateRect(hWnd, nullptr, FALSE);
             }
             break;
+
          case WM_NCDESTROY:
             RemoveWindowSubclass(hWnd, ButtonSubclass, g_buttonSubclassID);
             delete pButtonData;
             break;
+
          case WM_ERASEBKGND:
             if (isEnabled() && pButtonData->ensureTheme(hWnd))
             {
@@ -562,14 +579,16 @@ namespace NppDarkMode
             {
                break;
             }
+
          case WM_THEMECHANGED:
             pButtonData->closeTheme();
             break;
+
          case WM_PRINTCLIENT:
          case WM_PAINT:
             if (isEnabled() && pButtonData->ensureTheme(hWnd))
             {
-               PAINTSTRUCT ps = { 0 };
+               PAINTSTRUCT ps{};
                HDC hdc = reinterpret_cast<HDC>(wParam);
                if (!hdc)
                {
@@ -589,10 +608,12 @@ namespace NppDarkMode
             {
                break;
             }
+
          case WM_SIZE:
          case WM_DESTROY:
             BufferedPaintStopAllAnimations(hWnd);
             break;
+
          case WM_ENABLE:
             if (isEnabled())
             {
@@ -1410,8 +1431,7 @@ namespace NppDarkMode
                case BS_RADIOBUTTON:
                case BS_AUTORADIOBUTTON:
                {
-                  auto nButtonAllStyles = ::GetWindowLongPtr(hwnd, GWL_STYLE);
-                  if ((nButtonAllStyles & BS_PUSHLIKE) == BS_PUSHLIKE)
+                  if ((nButtonStyle & BS_PUSHLIKE) == BS_PUSHLIKE)
                   {
                      if (p.theme)
                      {
@@ -1419,12 +1439,19 @@ namespace NppDarkMode
                      }
                      break;
                   }
+
+                  if (IsWindows11() && p.theme)
+                  {
+                     SetWindowTheme(hwnd, p.themeClassName, nullptr);
+                  }
+
                   if (p.subclass)
                   {
                      subclassButtonControl(hwnd);
                   }
                   break;
                }
+
                case BS_GROUPBOX:
                {
                   if (p.subclass)
@@ -1433,8 +1460,11 @@ namespace NppDarkMode
                   }
                   break;
                }
-               case BS_DEFPUSHBUTTON:
+
                case BS_PUSHBUTTON:
+               case BS_DEFPUSHBUTTON:
+               case BS_SPLITBUTTON:
+               case BS_DEFSPLITBUTTON:
                {
                   if (p.theme)
                   {
@@ -1442,8 +1472,12 @@ namespace NppDarkMode
                   }
                   break;
                }
+
+               default:
+               {
+                  break;
+               }
             }
-            return TRUE;
          }
 
          if (wcscmp(className, TOOLBARCLASSNAME) == 0)
@@ -1459,8 +1493,8 @@ namespace NppDarkMode
             setDarkListView(hwnd);
             setDarkTooltips(hwnd, ToolTipsType::listview);
 
-            int fgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR, 0, 0)) };
-            int bgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR, 0, 0)) };
+            int fgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR)) };
+            int bgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR)) };
 
             ListView_SetTextColor(hwnd, fgColor);
             ListView_SetTextBkColor(hwnd, bgColor);
@@ -1478,8 +1512,8 @@ namespace NppDarkMode
 
          if (wcscmp(className, WC_TREEVIEW) == 0)
          {
-            int fgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR, 0, 0)) };
-            int bgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR, 0, 0)) };
+            int fgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR)) };
+            int bgColor{ static_cast<int>(nppMessage(NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR)) };
 
             TreeView_SetTextColor(hwnd, fgColor);
             TreeView_SetBkColor(hwnd, bgColor);
@@ -1772,17 +1806,11 @@ namespace NppDarkMode
 
          if (hasTheme)
          {
-            if ((style & UDS_HORZ) == UDS_HORZ) {
-               ::DrawThemeBackground(pButtonData->hTheme, hdc, BP_PUSHBUTTON, isHotUp ? PBS_HOT : PBS_NORMAL, &rcArrowUp, nullptr);
-               ::DrawThemeBackground(pButtonData->hTheme, hdc, BP_PUSHBUTTON, isHotDown ? PBS_HOT : PBS_NORMAL, &rcArrowDown, nullptr);
-            }
-            else {
-               int roundCornerValue = isWindows11() ? scaleDPIX(4) : 0;
-               holdPen = static_cast<HPEN>(::SelectObject(hdc, getEdgePen()));
+            int roundCornerValue = isWindows11() ? scaleDPIX(4) : 0;
+            holdPen = static_cast<HPEN>(::SelectObject(hdc, getEdgePen()));
 
-               paintRoundFrameRect(hdc, rcArrowUp, getEdgePen(), roundCornerValue, roundCornerValue);
-               paintRoundFrameRect(hdc, rcArrowDown, getEdgePen(), roundCornerValue, roundCornerValue);
-            }
+            paintRoundFrameRect(hdc, rcArrowUp, getEdgePen(), roundCornerValue, roundCornerValue);
+            paintRoundFrameRect(hdc, rcArrowDown, getEdgePen(), roundCornerValue, roundCornerValue);
          }
          else
          {
@@ -1821,12 +1849,11 @@ namespace NppDarkMode
          }
          else {
             auto mPosX = scaleDPIX(4);
-            auto mPosY = scaleDPIX(2);
 
             ::SetTextColor(hdc, isHotUp ? getTextColor() : getDarkerTextColor());
             ::ExtTextOut(hdc,
                rcArrowUp.left + mPosX,
-               rcArrowUp.top - mPosY,
+               rcArrowUp.top + scaleDPIX(2),
                ETO_CLIPPED,
                &rcArrowUp, L"˄",
                1,
@@ -1835,7 +1862,7 @@ namespace NppDarkMode
             ::SetTextColor(hdc, isHotDown ? getTextColor() : getDarkerTextColor());
             ::ExtTextOut(hdc,
                rcArrowDown.left + mPosX,
-               rcArrowDown.top - mPosY,
+               rcArrowDown.top,
                ETO_CLIPPED,
                &rcArrowDown, L"˅",
                1,
@@ -1902,8 +1929,17 @@ namespace NppDarkMode
 
    void setDarkTitleBar(HWND hwnd)
    {
-      allowDarkModeForWindow(hwnd, isEnabled());
-      setTitleBarThemeColor(hwnd);
+      constexpr DWORD win10Build2004 = 19041;
+      if (NppDarkMode::getWindowsBuildNumber() >= win10Build2004)
+      {
+         BOOL value = NppDarkMode::isEnabled() ? TRUE : FALSE;
+         DwmSetWindowAttribute(hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &value, sizeof(value));
+      }
+      else
+      {
+         allowDarkModeForWindow(hwnd, isEnabled());
+         setTitleBarThemeColor(hwnd);
+      }
    }
 
    void setDarkExplorerTheme(HWND hwnd)
@@ -2005,17 +2041,17 @@ namespace NppDarkMode
    {
       COLORREF bgColor{};// = NppParameters::getInstance().getCurrentDefaultBgColor();
 
-      if (treeViewBg != bgColor || lighnessTreeView == 50.0)
+      if (treeViewBg != bgColor || lightnessTreeView == 50.0)
       {
-         lighnessTreeView = calculatePerceivedLighness(bgColor);
+         lightnessTreeView = calculatePerceivedLightness(bgColor);
          treeViewBg = bgColor;
       }
 
-      if (lighnessTreeView < (50.0 - middleGrayRange))
+      if (lightnessTreeView < (50.0 - middleGrayRange))
       {
          treeViewStyle = TreeViewStyle::dark;
       }
-      else if (lighnessTreeView > (50.0 + middleGrayRange))
+      else if (lightnessTreeView > (50.0 + middleGrayRange))
       {
          treeViewStyle = TreeViewStyle::light;
       }
