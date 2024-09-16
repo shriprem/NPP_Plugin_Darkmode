@@ -187,6 +187,7 @@
       <LargeAddressAware>
       </LargeAddressAware>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <CETCompat>false</CETCompat>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -277,6 +278,7 @@
       <MinimumRequiredVersion>6.0</MinimumRequiredVersion>
       <LargeAddressAware>true</LargeAddressAware>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <CETCompat>false</CETCompat>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -316,6 +318,7 @@
       <Version>1.0</Version>
       <MinimumRequiredVersion>6.0</MinimumRequiredVersion>
       <LargeAddressAware>true</LargeAddressAware>
+      <CETCompat>false</CETCompat>
     </Link>
     <PostBuildEvent>
       <Command>
